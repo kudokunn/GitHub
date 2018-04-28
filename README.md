@@ -83,7 +83,7 @@ B4: Xem trạng thái thực hiện: git status
 
 Bước 5: Nếu là xóa một file: rm abc thì có thể undo việc xóa bằng: git checkout -- <file>. Vì vậy nên xóa bằng git rm abc => commit => push.
 
-B6: Xem log: git log hoặc git log -p
+B6: Xem log: git log --graph --oneline --all
 
 ### Thao tác nâng cao
 
