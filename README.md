@@ -84,3 +84,19 @@ B4: Xem trạng thái thực hiện: git status
 Bước 5: Nếu là xóa một file: rm abc thì có thể undo việc xóa bằng: git checkout -- <file>. Vì vậy nên xóa bằng git rm abc => commit => push.
 
 B6: Xem log: git log hoặc git log -p
+
+### Thao tác nâng cao
+
+* Tạo branch mới ví dụ dev: git branch dev
+
+* Xem đang ở brach nào: git branch
+
+* Sau khi tạo một file và git add, commit đầy đủ: để push branch dev lên hãy: git push origin dev
+
+* Clone branch : git clone -b dev git@github.com:kudokunn/Github.git 
+
+<Hoặc sử dụng git checkout dev để chuyển sang branch dev và thao tác trong đó, cần thì lại về master>
+
+* Chuyển sang branch khác ví dụ sang master: git checkout master
+
+* 
