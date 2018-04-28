@@ -87,7 +87,9 @@ B6: Xem log: git log hoặc git log -p
 
 ### Thao tác nâng cao
 
-* Tạo branch mới ví dụ dev: git branch dev
+Branch: Nhánh so với cái chính: khi muốn tạo một tính năng mới cho code hay thử nghiệm gì đó mới mà không muốn đụng vào cái chính thường là master thì hãy tạo branch làm độc lập, khi OK rồi hãy gộp về master 
+
+* Tạo branch mới ví dụ dev: git branch dev < branch dev có hết luôn code của master>
 
 * Xem đang ở brach nào: git branch
 
