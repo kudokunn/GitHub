@@ -114,3 +114,4 @@ Note: không được dùng rebase trên public branch, như master branch.
     git checkout master
     git rebase -i test
     
+* Sau khi gộp branch xong có thể xóa branch dev: git branch -D dev
