@@ -31,6 +31,7 @@ Nhưng cần chỉ định lấy từ brach nào: git pull <remote> <branch>. =>
 Kiểm tra cấu hình git hiện tại: git config --list
 
 ### Thao tác trên remote repository: 
+
 B1: Tạo repo trên server repository =>
 
 B2: git clone URL_SSH => được repo trên local và thực hiện
@@ -39,29 +40,47 @@ B3: Tạo một file: vim abc và thêm nôi dung gì đó
 
 B4: Xem trạng thái thực hiện: git status
 
-Nó báo:
+* Nó báo:
 
-    Untracked files:
-    (use "git add <file>..." to include in what will be committed)
+      Untracked files:
+      (use "git add <file>..." to include in what will be committed)
     
         abc
         
-nghĩa là: đã tìm thấy một sự thay đổi là file abc được thêm vào repo và chưa tracked (Untracked và abc màu đỏ) <chưa được đưa vào vùng staging>. Cần git add abc để tracked nó và nó sẽ được commit lên repository. Nếu muốn bỏ hãy xóa file đó: rm abc. Gõ git status lại:
+* Nghĩa là: đã tìm thấy một sự thay đổi là file abc được thêm vào repo và chưa tracked (Untracked và abc màu đỏ) <chưa được đưa vào vùng staging>. Cần git add abc để tracked nó và nó sẽ được commit lên repository. Nếu muốn bỏ hãy xóa file đó: rm abc. Gõ git status lại:
 
-    On branch master
-    Your branch is up-to-date with 'origin/master'.
-    nothing to commit, working directory clean
+      On branch master
+      Your branch is up-to-date with 'origin/master'.
+      nothing to commit, working directory clean
 
 
-Nếu ta đã gõ: git add abc để thêm vào staging rồi <tên abc đã hiện màu xanh>, muốn bỏ file abc sang khỏi vùng stagging hãy gõ: git reset HEAD abc
+* Nếu ta đã gõ: git add abc để thêm vào staging rồi <tên abc đã hiện màu xanh>, muốn bỏ file abc sang khỏi vùng stagging hãy gõ: git reset HEAD abc
 
-    Màu đỏ: thay đổi của một file nào đó và chưa cho vào khu vực staging area
-    Màu xanh: đã thêm vào staging area và sẵn sàng để commit. nó gọi là tracked: đánh dấu theo dõi trong staging area
+      Màu đỏ: thay đổi của một file nào đó và chưa cho vào khu vực staging area
+      Màu xanh: đã thêm vào staging area và sẵn sàng để commit. nó gọi là tracked: đánh dấu theo dõi trong staging area
     
-git add/rm : thêm vào staging area để chuẩn bị commit
-[git status: hiện màu xanh là đã vào vùng staging area: muốn bỏ unstag thì: git reset HEAD <tên file>]
-[git status: màu đỏ nghĩa là git đã phát hiện sự thay đổi của một file nào đó: nếu là thêm thì hãy: git add <file> để vào tracked. Nếu là xóa thì có thể undo việc xóa bằng: git checkout -- <file>]
-git commit -m "note_here"  : khi đã commit lại rồi, không thể quay lại được
-[có thể dùng git commit -amend -m 'note_again_here']
-git push, pull... :
-Xem log: git log hoặc git log -p
+* Sau đó ta gõ để commit abc vào repository: git commit -m 'create_abc'. Gõ git status:
+
+      1 file changed, 2 insertions(+)
+      create mode 100644 abc
+
+      On branch master
+      Your branch is ahead of 'origin/master' by 1 commit.
+        (use "git push" to publish your local commits)
+      nothing to commit, working directory clean
+      
+ * Nếu đột nhiên thấy phần comment của git commit bị sai, muốn sửa lại comment không người khác hiểu lầm thì gõ: git commit -amend -m 'note_again_here'
+      
+* Một commit đang đợi để push, muốn hủy commit không push hãy gõ: git reset --soft HEAD^ . Gõ git status lại: nó sẽ về trạng thái để commit
+ 
+      On branch master
+      Your branch is up-to-date with 'origin/master'.
+      Changes to be committed:
+        (use "git reset HEAD <file>..." to unstage)
+
+        new file:   abc
+
+
+Bước 5: Nếu là xóa một file: rm abc thì có thể undo việc xóa bằng: git checkout -- <file>. Vì vậy nên xóa bằng git rm abc => commit => push.
+
+B6: Xem log: git log hoặc git log -p
