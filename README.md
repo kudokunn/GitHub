@@ -99,4 +99,18 @@ B6: Xem log: git log hoặc git log -p
 
 * Chuyển sang branch khác ví dụ sang master: git checkout master
 
-* 
+* Để merger gộp branch dev đã tạo trước về master làm:
+  
+        git checkout master
+        git pull
+        git checkout test
+        git pull
+        git rebase -i master
+        git checkout master
+        git merge test
+
+Note: không được dùng rebase trên public branch, như master branch.
+
+    git checkout master
+    git rebase -i test
+    
