@@ -4,6 +4,18 @@
 
 ### Thao tác trên Local repository
 
+Mô hình trên local:
+
+Staging Area là một khu vực trung gian, là khu vực sẽ lưu trữ những thay đổi của bạn trên tập tin để nó có thể được commit, vì muốn commit tập tin nào thì tập tin đó phải nằm trong Staging Area.
+
+Commit là một hành động để Git lưu lại một bản chụp (snapshot) của các sự thay đổi trong thư mục làm việc, và các tập tin và thư mục được thay đổi đã phải nằm trong Staging Area
+
+Commit xong vào khu vực repository trên local, muốn đấy lên repository trên server dùng:git push
+
+Hình minh họa:
+
+![](/image/1.jpg)
+
 Vấn đề: Bình thường ta sử dụng git là tạo repo trên server remote và add key rồi clone repo về và chỉnh sửa tại repo clone luôn. Nhưng bây giờ thì không, ta tạo một repo ở trên server remote và có được URL của repo.git. Ta sẽ tạo một thư mục làm việc trên local có kết nối đến repo đó trên server remote và push, pull từ thư mục local đấy.
 
 Note: kiểu này thì mỗi lần push lên lại phải nhập tài khoản, mk. Nên dùng kiểu clone về và push lên cho đỡ nhâp mật khẩu
@@ -12,7 +24,7 @@ B1: vào thư mục local và gõ: git init
 
 B2: tạo một file trong đó: vim xyz và thêm nội dung bất kỳ
 
-b3: git add * 
+B3: git add * 
 
 B4: git commit -m 'addxyz'
 
@@ -117,3 +129,39 @@ Note: không được dùng rebase trên public branch, như master branch.
     git rebase -i test
     
 * Sau khi gộp branch xong có thể xóa branch dev: git branch -D dev
+
+### Mốt số lệnh khác:
+
+* Git Pull: câu lệnh git pull thực ra là viết tắt của git pull origin master. Trong đó:
+
+    origin là tên của kho chứa từ xa (hay remote repository).
+    master là tên của nhánh trên kho chứa từ xa. Một kho chứa có thể có nhiều nhánh khác nhau.
+    
+* Để liệt kê các kho chứa từ xa bạn có thể dùng câu lệnh sau:
+
+      $ git remote -v
+
+* Để liệt kê cách nhánh của các kho chứa:
+
+      $ git branch -a
+
+* Về bản chất khi chạy câu lệnh git pull origin master thực sự là bạn đang sử dụng hai câu lệnh phía sau:
+
+      $ git fetch origin master
+
+và:
+
+      $ git merge origin master
+
+Câu lệnh git fetch origin master sẽ truy vấn thông tin của kho chứa từ xa trên máy chủ remote và sau đó kéo về máy local những thay đổi này. Tiếp đó câu lệnh trên sẽ thực hiện việc so sánh những thay đổi mới kéo về máy local và hiển thị thông tin.
+
+Câu lệnh git merge orign master sẽ gộp những thay đổi mới kéo về (dùng câu lệnh git fetch ở trên) từ máy chủ từ xa với nhánh hiện tại trên máy local.
+
+=> Vấn đề: Nếu từ branch nào đó là dev chằng hạn mà gõ: git pull origin master thì nó sẽ fetch và merger data từ master về dev.
+            Nếu từ branch master gõ git pull từ dev: git pull origin dev thì vẫn pull được data từ dev về master 
+
+* Git pull request:
+
+Thông thường khi làm với Git mỗi lập trình viên sẽ tạo một branch mới khác với master để phát triển một tính năng mới. Giả sử nhánh mà lập trình viên tạo ra để phát triển tính năng có tên là my_feature. Trong trường hợp này sau khi đẩy commit trên nhánh này trên nhánh tương ứng my_feature ở kho chứa từ xa origin thì để các lập trình viên khác có thể kéo về được commit này thì quản trị viên trên máy chủ từ xa cần thực hiện việc gộp commit ở nhánh my_feature về nhánh master.
+
+Pull request là một yêu cầu gửi tới quản trị viên kho chứa từ xa gộp commit mới được tạo ra từ nhanh my_feature về nhánh master để các lập trình viên khác có thể pull về được.
