@@ -6,11 +6,11 @@
 
 Mô hình trên local:
 
-Staging Area là một khu vực trung gian, là khu vực sẽ lưu trữ những thay đổi của bạn trên tập tin để nó có thể được commit, vì muốn commit tập tin nào thì tập tin đó phải nằm trong Staging Area.
+* Staging Area là một khu vực trung gian, là khu vực sẽ lưu trữ những thay đổi của bạn trên tập tin để nó có thể được commit, vì muốn commit tập tin nào thì tập tin đó phải nằm trong Staging Area.
 
-Commit là một hành động để Git lưu lại một bản chụp (snapshot) của các sự thay đổi trong thư mục làm việc, và các tập tin và thư mục được thay đổi đã phải nằm trong Staging Area
+* Commit là một hành động để Git lưu lại một bản chụp (snapshot) của các sự thay đổi trong thư mục làm việc, và các tập tin và thư mục được thay đổi đã phải nằm trong Staging Area
 
-Commit xong vào khu vực repository trên local, muốn đấy lên repository trên server dùng:git push
+* Commit xong vào khu vực repository trên local, muốn đấy lên repository trên server dùng:git push
 
 Hình minh họa:
 
@@ -20,23 +20,23 @@ Vấn đề: Bình thường ta sử dụng git là tạo repo trên server remo
 
 Note: kiểu này thì mỗi lần push lên lại phải nhập tài khoản, mk. Nên dùng kiểu clone về và push lên cho đỡ nhâp mật khẩu
 
-B1: vào thư mục local và gõ: git init
+* B1: vào thư mục local và gõ: git init
 
-B2: tạo một file trong đó: vim xyz và thêm nội dung bất kỳ
+* B2: tạo một file trong đó: vim xyz và thêm nội dung bất kỳ
 
-B3: git add * 
+* B3: git add * 
 
-B4: git commit -m 'addxyz'
+* B4: git commit -m 'addxyz'
 
-B5: Liên kết với repo trên server remote: git remote add origin URL_repo_server <lên repo remote và lấy chỗ SSH và HTTPS>
+* B5: Liên kết với repo trên server remote: git remote add origin URL_repo_server <lên repo remote và lấy chỗ SSH và HTTPS>
 
 P/S: origin là tên remote repository. Mặc định khi clone một repository thì nó tự đặt tên là origin.
 
-B6: Kiểm tra liên kết với repo từ xa chưa: git remote -v
+* B6: Kiểm tra liên kết với repo từ xa chưa: git remote -v
 
-B7: Push dữ liệu lên server remote: git push origin master (vì liên kết với URL repo trên nên cần phải xác nhận user có được quyền vào repo đó không là nhập tài khoản và mật khẩu)
+* B7: Push dữ liệu lên server remote: git push origin master (vì liên kết với URL repo trên nên cần phải xác nhận user có được quyền vào repo đó không là nhập tài khoản và mật khẩu)
 
-B8: Tạo file README trên github, khi có dữ liệu trên repository remote thì cần cập nhật lại repository local trước khi push từ data từ local lên server.
+* B8: Tạo file README trên github, khi có dữ liệu trên repository remote thì cần cập nhật lại repository local trước khi push từ data từ local lên server.
 
 Nhưng cần chỉ định lấy từ brach nào: git pull <remote> <branch>. => git pull origin master.
   
@@ -44,13 +44,13 @@ Kiểm tra cấu hình git hiện tại: git config --list
 
 ### Thao tác trên remote repository: 
 
-B1: Tạo repo trên server repository =>
+* B1: Tạo repo trên server repository =>
 
-B2: git clone URL_SSH => được repo trên local và thực hiện
+* B2: git clone URL_SSH => được repo trên local và thực hiện
 
-B3: Tạo một file: vim abc và thêm nôi dung gì đó
+* B3: Tạo một file: vim abc và thêm nôi dung gì đó
 
-B4: Xem trạng thái thực hiện: git status
+* B4: Xem trạng thái thực hiện: git status
 
 * Nó báo:
 
@@ -165,3 +165,63 @@ Câu lệnh git merge orign master sẽ gộp những thay đổi mới kéo v�
 Thông thường khi làm với Git mỗi lập trình viên sẽ tạo một branch mới khác với master để phát triển một tính năng mới. Giả sử nhánh mà lập trình viên tạo ra để phát triển tính năng có tên là my_feature. Trong trường hợp này sau khi đẩy commit trên nhánh này trên nhánh tương ứng my_feature ở kho chứa từ xa origin thì để các lập trình viên khác có thể kéo về được commit này thì quản trị viên trên máy chủ từ xa cần thực hiện việc gộp commit ở nhánh my_feature về nhánh master.
 
 Pull request là một yêu cầu gửi tới quản trị viên kho chứa từ xa gộp commit mới được tạo ra từ nhanh my_feature về nhánh master để các lập trình viên khác có thể pull về được.
+
+### Vấn đề conflic: 
+
+Khi bạn làm việc với nhiều branch, nhảy qua nhảy về, commit, sửa chung một dòng code, cũng sẽ xảy ra conflict. Bản chất conflic là khi merge code lại mà dòng đó có nhiều người chỉnh sửa nên git không biết lấy dòng nào và báo conflic để hỏi người dùng xem lấy dòng nào hay giữ cả hai dòng code (fix đấy)
+
+### Ví dụ: Tạo repo local
+
+    $ mkdir demo_conflict
+    $ cd demo_conflict
+    $ git init
+    Initialized empty Git repository in /Users/user/Desktop/demo_conflict/.git/
+    
+#### Tạo nhánh master:
+
+    $ git checkout -b master # tạo branch master
+    Switched to a new branch 'master'
+    $ touch file_in_master # tạo file
+    $ echo "line 1 in master" >> file_in_master # thêm dòng 1 file 
+    $ git add file_in_master  # thêm vào staging area
+    $ git commit -m "init and add first line in master" # lưu thay đổi vào repository
+    
+ #### Tạo nhánh conflic
+ 
+    $ git checkout -b conflict # tạo nhánh branch conflic
+    Switched to a new branch 'conflict'
+    $ git commit -m "Add line 2 in conflict branch" >> file_in_master # thêm dòng 2 vào file
+    $ git add file_in_master # thêm vào staging
+    $ git commit -m "Add line 2 in conflict branch" # lưu vào repository
+    $ cat file_in_master
+    line 1 in master
+    Add line 2 in conflict branch
+    
+ #### Tạo conflic khi merge:
+ 
+    $ git checkout master
+    Switched to branch 'master'
+    $ echo "line 2 in master branch, this will lead to conflict issue" >> file_in_master 
+    $ git add file_in_master 
+    $ git commit -m "add line 2 in master branch, this will lead to conflict issue"
+    $ git merge conflic # gộp từ branch conflic into master
+    [master b5fb839] add line 2 in master branch, this will lead to conflict issue
+     1 file changed, 1 insertion(+)
+    $ git merge conflict
+    CONFLICT (content): Merge conflict in file_in_master
+    Recorded preimage for 'file_in_master'
+    Automatic merge failed; fix conflicts and then commit the result.
+    
+#### Fix conflic: chỉ cần sửa là lấy một trong hai đoạn code hay giữ cả hai và xóa mấy dòng <<<<<<<HEAD >>>>>>>>> conflic
+    
+    $ vim file_in_master
+    
+    line 1 in master
+    <<<<<<< HEAD
+    line 2 in master branch, this will lead to conflict issue
+    =======
+    line 2 in conflict branch
+    >>>>>>> conflict
+    
+Xong git add, git commit file đó bình thường
+    
