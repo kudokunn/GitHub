@@ -83,4 +83,37 @@ B4: Xem trạng thái thực hiện: git status
 
 Bước 5: Nếu là xóa một file: rm abc thì có thể undo việc xóa bằng: git checkout -- <file>. Vì vậy nên xóa bằng git rm abc => commit => push.
 
-B6: Xem log: git log hoặc git log -p
+B6: Xem log: git log --graph --oneline --all
+
+### Thao tác nâng cao
+
+Branch: Nhánh so với cái chính: khi muốn tạo một tính năng mới cho code hay thử nghiệm gì đó mới mà không muốn đụng vào cái chính thường là master thì hãy tạo branch làm độc lập, khi OK rồi hãy gộp về master 
+
+* Tạo branch mới ví dụ dev: git branch dev < branch dev có hết luôn code của master>
+
+* Xem đang ở brach nào: git branch
+
+* Sau khi tạo một file và git add, commit đầy đủ: để push branch dev lên hãy: git push origin dev
+
+* Clone branch : git clone -b dev git@github.com:kudokunn/Github.git 
+
+<Hoặc sử dụng git checkout dev để chuyển sang branch dev và thao tác trong đó, cần thì lại về master>
+
+* Chuyển sang branch khác ví dụ sang master: git checkout master
+
+* Để merger gộp branch dev đã tạo trước về master làm:
+  
+        git checkout master
+        git pull
+        git checkout test
+        git pull
+        git rebase -i master
+        git checkout master
+        git merge test
+
+Note: không được dùng rebase trên public branch, như master branch.
+
+    git checkout master
+    git rebase -i test
+    
+* Sau khi gộp branch xong có thể xóa branch dev: git branch -D dev
