@@ -194,8 +194,9 @@ Khi bạn làm việc với nhiều branch, nhảy qua nhảy về, commit, sử
     $ git add file_in_master # thêm vào staging
     $ git commit -m "Add line 2 in conflict branch" # lưu vào repository
     $ cat file_in_master
-    line 1 in master
-    Add line 2 in conflict branch
+    line 1 in master # tạo branch mới thì kế thừa luôn branch gốc nên mới có dòng này. 
+    Add line 2 in conflict branch # Dòng này được thêm vào chỉ có ở branch conflic
+    #### thực tế, khi tạo một branch khác thì phải về master để tạo branch, không thể ở branch khác tạo branch vì code ở master là stable, các branch khác là còn đang develop nên thêm tính năng gì đó cần ở branch master đi ra.
     
  #### Tạo conflic khi merge:
  
